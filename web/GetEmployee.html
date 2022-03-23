@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+<title>Get Employee</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script
+	src=" http://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js "></script>
+</head>
+<body>
+
+	<div class="container">
+		<h2>Get Emp by Id#</h2>
+
+		<div class="form-group">
+			<span><label for="empId">Emp Id</label> <label
+				id="empIdMsg"> </label></span> <br>
+			<input id="empId" maxlength="50" placeholder="emp id" name="emp id"
+				type="text" /> <br> <br> <input type="button"
+				class="btn btn-primary" value="Get Employee Data"
+				onclick="getEmployee();" />
+		</div>
+
+	</div>
+	<script>
+		function getEmployee() {
+
+			var emp_Id = document.getElementById("empId").value;
+
+			
+			var empIdJsonObj = {
+					empId : emp_Id
+				};
+			
+			var reqData = createGETRequest(
+					"90938768|-31948831613852612|90945963", "EMP_DB",
+					"EMP-REL", JSON.stringify(empIdJsonObj));
+			 
+			alert("Request Data :" + reqData);
+			jQuery.ajaxSetup({
+				async : false
+			});
+			var rspData = executeCommandAtGivenBaseUrl(reqData,
+					"http://api.login2explore.com:5577", "/api/irl");
+			jQuery.ajaxSetup({
+				async : true
+			});
+			alert("Employee Data :"  + JSON.stringify(rspData));
+
+		}
+	</script>
+</body>
+</html>

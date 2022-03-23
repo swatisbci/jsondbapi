@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+<title>Update Employee Email Id</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script
+	src=" http://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js "></script>
+</head>
+<body>
+
+	<div class="container">
+		<h2>Update Emp EmailId by Record#</h2>
+
+		<div class="form-group">
+			<span><label for="record_no">Record No:</label> <label
+				id="record_noMsg"> </label></span> <br> <input id="record_no"
+				maxlength="50" placeholder="record#" name="record#" type="text" />
+			<br> <br> <label for="email">Updated Email Id:</label> <br>
+			<input id="email" maxlength="50" placeholder="email"
+				name="Update email" type="text" /><br> <br> <br> <input
+				type="button" class="btn btn-primary" value="Update Employee Data"
+				onclick="updateEmployee();" />
+		</div>
+
+	</div>
+	<script>
+		function updateEmployee() {
+
+			var record_no = parseInt(document.getElementById("record_no").value);
+			var email = document.getElementById("email").value;
+			var emailJsonObj = {
+				empEmail : email,
+			};
+
+			var reqData = createUPDATERecordRequest(
+					"90938768|-31948831613852612|90945963", JSON
+							.stringify(emailJsonObj), "EMP_DB", "EMP-REL",
+					record_no);
+			alert("Request Data :" + reqData);
+			jQuery.ajaxSetup({
+				async : false
+			});
+			var rspData = executeCommandAtGivenBaseUrl(reqData,
+					"http://api.login2explore.com:5577", "/api/iml");
+			jQuery.ajaxSetup({
+				async : true
+			});
+			alert(JSON.stringify(rspData));
+
+		}
+	</script>
+</body>
+</html>
